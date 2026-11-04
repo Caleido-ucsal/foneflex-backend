@@ -19,7 +19,7 @@ import ucsal.foneflex.repository.UsuarioRepository;
 public class UsuarioService
 {   
     private final UsuarioRepository usuarioRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     public UsuarioResponseDTO createUsuario(UsuarioRequestDTO usuarioRequestDTO)
     {
@@ -34,7 +34,7 @@ public class UsuarioService
         return toResponseDTO(savedUsuario);
     }
 
-    public List<UsuarioResponseDTO> readAllUsuarios()
+    public List<UsuarioResponseDTO> readAUsuarios()
     {
         return usuarioRepository.findAll()
             .stream()
