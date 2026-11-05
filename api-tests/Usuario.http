@@ -1,0 +1,35 @@
+###Create
+POST http://localhost:8080/usuarios
+Authorization: Basic user 4b840be9-2241-47dd-8292-8f000032a633
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nome": "Antony Rafael dos Santos Rufino",
+  "email": "antony05rafael@gmail.com",
+  "senha": "123456",
+  "ativo": true
+}
+
+###Read
+GET http://localhost:8080/usuarios
+Authorization: Basic user 4b840be9-2241-47dd-8292-8f000032a633
+Content-Type: application/json
+
+###Update
+PUT http://localhost:8080/usuarios/1
+Authorization: Basic user 4b840be9-2241-47dd-8292-8f000032a633
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nome": "Antony Rafael dos Santos Rufino",
+  "email": "antony26rafael@gmail.com",
+  "senha": "123456",
+  "ativo": true
+}
+
+###Delete
+DELETE http://localhost:8080/usuarios/1
+Authorization: Basic user 4b840be9-2241-47dd-8292-8f000032a633
+Content-Type: application/json
