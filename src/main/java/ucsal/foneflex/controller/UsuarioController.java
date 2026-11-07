@@ -41,7 +41,7 @@ public class UsuarioController
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> updateUsuario(@PathVariable Long id, @RequestBody UsuarioRequestDTO usuarioRequestDTO)
+    public ResponseEntity<Map<String, Object>> updateUsuario(@PathVariable Integer id, @RequestBody UsuarioRequestDTO usuarioRequestDTO)
     {
         usuarioService.updateUsuario(id, usuarioRequestDTO);
 
@@ -49,7 +49,7 @@ public class UsuarioController
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> excluirUsuario(@PathVariable Long id)
+    public ResponseEntity<Map<String, Object>> excluirUsuario(@PathVariable Integer id)
     {
         usuarioService.deleteUsuario(id);
 

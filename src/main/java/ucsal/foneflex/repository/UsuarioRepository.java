@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import ucsal.foneflex.model.Usuario;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long>
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer>
 {
     Optional<Usuario> findByNome(String nome);
     Optional<Usuario> findByEmail(String email);

@@ -1,10 +1,13 @@
 package ucsal.foneflex.dto.usuario;
 
+import java.time.LocalDateTime;
+
 public record UsuarioResponseDTO
 (
-        Long id,
+        Integer id,
         String nome,
         String email,
-        Boolean ativo
+        Boolean ativo,
+        LocalDateTime dataInclusao
 )
 {}

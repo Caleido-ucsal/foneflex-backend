@@ -42,7 +42,7 @@ public class UsuarioService
             .toList();
     }
 
-    public UsuarioResponseDTO updateUsuario(Long id, @Valid UsuarioRequestDTO usuarioRequestDTO)
+    public UsuarioResponseDTO updateUsuario(Integer id, @Valid UsuarioRequestDTO usuarioRequestDTO)
     {
         Usuario updateUsuario = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
         updateUsuario.setNome(usuarioRequestDTO.nome());
@@ -53,7 +53,7 @@ public class UsuarioService
         return toResponseDTO(usuarioRepository.save(updateUsuario));
     }
 
-    public void deleteUsuario(Long id)
+    public void deleteUsuario(Integer id)
     {
         Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
 
@@ -67,7 +67,8 @@ public class UsuarioService
             usuario.getId(),
             usuario.getNome(),
             usuario.getEmail(),
-            usuario.getAtivo()
+            usuario.getAtivo(),
+            usuario.getDataInclusao()
         );
     }
 }

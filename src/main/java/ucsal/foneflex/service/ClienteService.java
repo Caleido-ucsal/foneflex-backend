@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import ucsal.foneflex.dto.cliente.ClienteRequestDTO;
 import ucsal.foneflex.dto.cliente.ClienteResponseDTO;
 import ucsal.foneflex.model.Cliente;
-import ucsal.foneflex.model.Usuario;
 import ucsal.foneflex.repository.ClienteRepository;
 
 @Service
@@ -39,7 +38,7 @@ public class ClienteService
             .toList();
     }
 
-    public ClienteResponseDTO updateCliente(Long id, ClienteRequestDTO clienteRequestDTO)
+    public ClienteResponseDTO updateCliente(Integer id, ClienteRequestDTO clienteRequestDTO)
     {
         Cliente updateCliente = clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado."));
         updateCliente.setNome(clienteRequestDTO.nome());
@@ -50,7 +49,7 @@ public class ClienteService
         return toResponseDTO(clienteRepository.save(updateCliente));
     }
 
-    public void deleteCliente(Long id)
+    public void deleteCliente(Integer id)
     {
         Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado."));
 
@@ -65,8 +64,8 @@ public class ClienteService
             cliente.getNome(),
             cliente.getCpf(),
             cliente.getTelefone(),
-            cliente.getEmail()
-            // cliente.getDataCadastro()
+            cliente.getEmail(),
+            cliente.getDataCadastro()
         );
     }
 }

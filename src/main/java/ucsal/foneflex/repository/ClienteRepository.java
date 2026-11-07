@@ -9,11 +9,11 @@ import org.springframework.stereotype.Repository;
 import ucsal.foneflex.model.Cliente;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Long>
+public interface ClienteRepository extends JpaRepository<Cliente, Integer>
 {
     Optional<Cliente> findByNome(String nome);
     Optional<Cliente> findByCpf(String cpf);
     Optional<Cliente> findByEmail(String email);
     Optional<Cliente> findByTelefone(String telefone);
-    // Optional<Cliente> findByDataCadastro(LocalDateTime dataCadastro);
+    Optional<Cliente> findByDataCadastro(LocalDateTime dataCadastro);
 }
