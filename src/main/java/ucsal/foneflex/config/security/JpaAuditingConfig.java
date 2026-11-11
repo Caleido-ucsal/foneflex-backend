@@ -9,7 +9,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import ucsal.foneflex.model.Usuario;
+import ucsal.foneflex.usuario.Usuario;
 
 @Configuration
 public class JpaAuditingConfig

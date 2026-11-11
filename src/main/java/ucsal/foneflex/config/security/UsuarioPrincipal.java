@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import ucsal.foneflex.model.Usuario;
+import ucsal.foneflex.usuario.Usuario;
 
 @Getter
 @RequiredArgsConstructor

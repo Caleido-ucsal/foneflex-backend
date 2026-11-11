@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import ucsal.foneflex.model.Usuario;
-import ucsal.foneflex.repository.UsuarioRepository;
+import ucsal.foneflex.usuario.Usuario;
+import ucsal.foneflex.usuario.UsuarioRepository;
 
 @Service
 @RequiredArgsConstructor
