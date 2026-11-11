@@ -1,6 +1,5 @@
 package ucsal.foneflex.config.security;
 
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,10 +24,6 @@ public class UsuarioDetailsService implements UserDetailsService {
                         "Usuário não encontrado"
                 ));
 
-        return User.withUsername(usuario.getEmail())
-                .password(usuario.getSenha())
-                .roles("USER")
-                .disabled(!Boolean.TRUE.equals(usuario.getAtivo()))
-                .build();
+        return new UsuarioPrincipal(usuario);
     }
 }

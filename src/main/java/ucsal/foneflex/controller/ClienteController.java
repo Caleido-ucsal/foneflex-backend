@@ -41,7 +41,7 @@ public class ClienteController
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> updateCliente(@PathVariable Integer id, @RequestBody ClienteRequestDTO clienteRequestDTO)
+    public ResponseEntity<Map<String, Object>> updateCliente(@PathVariable Integer id, @Valid @RequestBody ClienteRequestDTO clienteRequestDTO)
     {
         clienteService.updateCliente(id, clienteRequestDTO);
 
