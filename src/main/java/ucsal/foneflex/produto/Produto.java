@@ -1,5 +1,6 @@
 package ucsal.foneflex.produto;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.springframework.data.annotation.LastModifiedDate;
@@ -30,21 +31,24 @@ public class Produto
     private Integer id;
 
     @Column (nullable = false, updatable = true)
-    private String nome_marca;
+    private String nomeMarca;
 
     @Column (nullable = false, updatable = true)
-    private String nome_produto;
+    private String nomeProduto;
 
     @Column (nullable = false, updatable = true)
-    private String descricao_produto;
+    private BigDecimal precoUnitario;
 
     @Column (nullable = false, updatable = true)
-    private String condicao_produto;
+    private String descricaoProduto;
 
     @Column (nullable = false, updatable = true)
-    private Integer quantidade_estoque;
+    private String condicaoProduto;
+
+    @Column (nullable = false, updatable = true)
+    private Integer quantidadeEstoque;
 
     @LastModifiedDate
     @Column (nullable = false, updatable = true)
-    private LocalDate data_recebimento;
+    private LocalDate dataRecebimento;
 }
