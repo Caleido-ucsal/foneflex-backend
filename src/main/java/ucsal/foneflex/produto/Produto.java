@@ -39,7 +39,7 @@ public class Produto
     @Column (nullable = false, updatable = true)
     private BigDecimal precoUnitario;
 
-    @Column (nullable = false, updatable = true)
+    @Column (nullable = true, updatable = true)
     private String descricaoProduto;
 
     @Column (nullable = false, updatable = true)
