@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ProdutoRepository extends JpaRepository<Produto, Integer>
 {
     List<Produto> findByNomeMarca(String nomeMarca);
-    List<Produto> findByNomeProduto(String nomeProduto);
+    List<Produto> findBymarcaProduto(String marcaProduto);
 }

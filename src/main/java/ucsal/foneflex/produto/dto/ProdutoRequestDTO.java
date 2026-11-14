@@ -11,7 +11,7 @@ public record ProdutoRequestDTO
     String nomeMarca,
 
     @NotBlank (message = "O nome do produto é obrigatório")
-    String nomeProduto,
+    String marcaProduto,
 
     @NotNull (message = "O preço unitário é obrigatório")
     BigDecimal precoUnitario,

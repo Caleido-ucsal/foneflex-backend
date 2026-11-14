@@ -9,7 +9,7 @@ public record ProdutoResponseDTO
 (
     Integer id,
     String nomeMarca,
-    String nomeProduto,
+    String marcaProduto,
     BigDecimal precoUnitario,
     String descricaoProduto,
     String condicaoProduto,

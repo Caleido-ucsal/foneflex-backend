@@ -34,7 +34,7 @@ public class Produto
     private String nomeMarca;
 
     @Column (nullable = false, updatable = true)
-    private String nomeProduto;
+    private String marcaProduto;
 
     @Column (nullable = false, updatable = true)
     private BigDecimal precoUnitario;
