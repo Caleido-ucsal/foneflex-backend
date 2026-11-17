@@ -7,19 +7,19 @@ import jakarta.validation.constraints.NotNull;
 
 public record ProdutoRequestDTO
 (
-    @NotBlank (message = "O nome da marca do produto é obrigatório")
-    String nomeMarca,
+        @NotBlank(message = "O nome da marca do produto é obrigatório")
+        String nomeProduto,
+        
+        @NotBlank(message = "O nome do produto é obrigatório")
+        String marcaProduto,
 
-    @NotBlank (message = "O nome do produto é obrigatório")
-    String marcaProduto,
+        @NotNull(message = "O preço unitário é obrigatório")
+        BigDecimal precoUnitario,
 
-    @NotNull (message = "O preço unitário é obrigatório")
-    BigDecimal precoUnitario,
+        String descricaoProduto,
 
-    String descricaoProduto,
+        String condicaoProduto,
 
-    String condicaoProduto,
-
-    Integer quantidadeEstoque
+        Integer quantidadeEstoque
 )
 {}

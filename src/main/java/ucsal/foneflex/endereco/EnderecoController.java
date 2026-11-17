@@ -45,14 +45,14 @@ public class EnderecoController
         return enderecoService.readEnderecoEspecifico(clienteId, id);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Map<Object, String>> updateEndereco(@PathVariable Integer clienteId, @PathVariable Integer id, @Valid @RequestBody EnderecoRequestDTO enderecoRequestDTO)
     {
         enderecoService.updateEndereco(id, enderecoRequestDTO);
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("message", "Endereço atualizado com sucesso"));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Map<Object, String>> deleteEndereco(@PathVariable Integer clienteId, @PathVariable Integer id)
     {
         enderecoService.deleteEndereco(id);

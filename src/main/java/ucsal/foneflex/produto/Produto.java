@@ -17,38 +17,38 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity 
+@Entity
 @EntityListeners(AuditingEntityListener.class)
-@Getter 
-@Setter 
-@AllArgsConstructor 
-@NoArgsConstructor 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Produto
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "codigo_produto")
+    @Column(name = "codigo_produto")
     private Integer id;
 
-    @Column (nullable = false, updatable = true)
-    private String nomeMarca;
-
-    @Column (nullable = false, updatable = true)
+    @Column(nullable = false, updatable = true)
     private String marcaProduto;
 
-    @Column (nullable = false, updatable = true)
+    @Column(nullable = false, updatable = true)
+    private String nomeProduto;
+
+    @Column(nullable = false, updatable = true)
     private BigDecimal precoUnitario;
 
-    @Column (nullable = true, updatable = true)
+    @Column(nullable = true, updatable = true)
     private String descricaoProduto;
 
-    @Column (nullable = false, updatable = true)
+    @Column(nullable = false, updatable = true)
     private String condicaoProduto;
 
-    @Column (nullable = false, updatable = true)
+    @Column(nullable = false, updatable = true)
     private Integer quantidadeEstoque;
 
     @LastModifiedDate
-    @Column (nullable = false, updatable = true)
+    @Column(nullable = false, updatable = true)
     private LocalDate dataRecebimento;
 }
