@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.CascadeType;
@@ -60,6 +61,12 @@ public class Venda
 
     private BigDecimal valorVenda;
 
+    @LastModifiedDate
+    private LocalDateTime ultimaAlteracao;
+
     @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProdutoVenda> produtosVenda = new ArrayList<>();
+
+    // @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
+    // private List<Pagamento> pagamentos = new ArrayList<>();
 }

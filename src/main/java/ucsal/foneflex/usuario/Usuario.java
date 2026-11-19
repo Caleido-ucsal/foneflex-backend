@@ -29,7 +29,7 @@ public class Usuario
     @Column (name = "codigo_funcionario")
     private Integer id;
 
-    @Column (name = "nome_funcionario",nullable = false, updatable = true)
+    @Column (name = "nome_funcionario", nullable = false, updatable = true)
     private String nome;
 
     @Column (nullable = false, updatable = true)
