@@ -1,5 +1,6 @@
 package ucsal.foneflex.produtovenda;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -31,14 +32,21 @@ public class ProdutoVendaService
         .orElseThrow(() -> new RuntimeException("Venda não encontrada"));
 
         Produto produto = produtoRepository.findById(produtoVendaRequestDTO.produtoId())
-        .orElseThrow(() -> new RuntimeException("Venda não encontrada"));
+        .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+        BigDecimal quantidadeEstoque = BigDecimal.valueOf(produto.getQuantidadeEstoque());
 
         ProdutoVenda produtoVenda = new ProdutoVenda();
         
         produtoVenda.setVenda(venda);
         produtoVenda.setProduto(produto);
-        produtoVenda.setPrecoUnitario(produto.getPrecoUnitario());
+        // produtoVenda.setQuantidade(produtoVendaRequestDTO.quantidade());
+        if(produtoVendaRequestDTO.quantidade().compareTo(quantidadeEstoque) > 0)
+        {
+            throw new IllegalArgumentException("Quantidade solicitada indisponível em estoque.");
+        }
         produtoVenda.setQuantidade(produtoVendaRequestDTO.quantidade());
+        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - produtoVendaRequestDTO.quantidade().intValue());
         produtoVenda.setSubTotal(produto.getPrecoUnitario().multiply(produtoVendaRequestDTO.quantidade()));
         venda.setValorVenda(venda.getValorVenda().add(produtoVenda.getSubTotal()));
 
@@ -68,6 +76,8 @@ public class ProdutoVendaService
         Produto produto = produtoRepository.findById(produtoVendaRequestDTO.produtoId())
         .orElseThrow(() -> new RuntimeException("Venda não encontrada"));
 
+        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + produtoVenda.getQuantidade().intValue());
+
         venda.setValorVenda(venda.getValorVenda().subtract(produtoVenda.getSubTotal()));
 
         produtoVenda.setVenda(venda);
@@ -75,6 +85,7 @@ public class ProdutoVendaService
         produtoVenda.setPrecoUnitario(produtoVenda.getPrecoUnitario());
         produtoVenda.setQuantidade(produtoVendaRequestDTO.quantidade());
         produtoVenda.setSubTotal(produto.getPrecoUnitario().multiply(produtoVendaRequestDTO.quantidade()));
+        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - produtoVendaRequestDTO.quantidade().intValue());
         venda.setValorVenda(venda.getValorVenda().add(produtoVenda.getSubTotal()));
 
         produtoVendaRepository.save(produtoVenda);
@@ -90,6 +101,10 @@ public class ProdutoVendaService
 
         ProdutoVenda produtoVenda = produtoVendaRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Venda não encontrada"));
+
+        Produto produto = produtoVenda.getProduto();
+
+        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + produtoVenda.getQuantidade().intValue());
 
         venda.setValorVenda(venda.getValorVenda().subtract(produtoVenda.getSubTotal()));
 
