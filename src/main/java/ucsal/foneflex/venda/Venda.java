@@ -59,7 +59,7 @@ public class Venda
     @Column(nullable = false, updatable = true)
     private Status status = Status.EM_ABERTO;
 
-    private BigDecimal valorVenda;
+    private BigDecimal valorVenda = BigDecimal.ZERO;
 
     @LastModifiedDate
     private LocalDateTime ultimaAlteracao;

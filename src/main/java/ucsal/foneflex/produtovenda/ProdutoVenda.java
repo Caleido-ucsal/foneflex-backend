@@ -37,7 +37,7 @@ public class ProdutoVenda
     private Venda venda;
 
     @Column(nullable = false, updatable = true)
-    private Integer quantidade = 1;
+    private BigDecimal quantidade = BigDecimal.ONE;
 
     private BigDecimal precoUnitario;
 
