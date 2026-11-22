@@ -38,6 +38,7 @@ public class Pagamento
     private Long id;
 
     @JoinColumn(name = "codigo_funcionario", nullable = false, updatable = false)
+    @ManyToOne
     @CreatedBy
     private Usuario funcionario;
 

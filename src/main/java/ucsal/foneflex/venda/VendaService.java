@@ -100,6 +100,7 @@ public class VendaService
             venda.getDataVenda(),
             venda.getStatus(),
             venda.getValorVenda(),
+            venda.getValorPago(),
             venda.getUltimaAlteracao()
         );
     }

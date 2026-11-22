@@ -16,6 +16,7 @@ public record VendaResponseDTO
     LocalDateTime dataVenda,
     Status status,
     BigDecimal valorVenda,
+    BigDecimal valorPago,
     @JsonFormat(pattern = "dd/MM/yyyy")
     LocalDateTime ultimaAlteracao
 )
