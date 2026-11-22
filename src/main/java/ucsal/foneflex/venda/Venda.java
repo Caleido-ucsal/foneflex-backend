@@ -27,6 +27,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ucsal.foneflex.cliente.Cliente;
+import ucsal.foneflex.pagamento.Pagamento;
 import ucsal.foneflex.produtovenda.ProdutoVenda;
 import ucsal.foneflex.usuario.Usuario;
 
@@ -61,12 +62,14 @@ public class Venda
 
     private BigDecimal valorVenda = BigDecimal.ZERO;
 
+    private BigDecimal valorPago = BigDecimal.ZERO;
+
     @LastModifiedDate
     private LocalDateTime ultimaAlteracao;
 
     @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProdutoVenda> produtosVenda = new ArrayList<>();
 
-    // @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
-    // private List<Pagamento> pagamentos = new ArrayList<>();
+    @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Pagamento> pagamentos = new ArrayList<>();
 }
