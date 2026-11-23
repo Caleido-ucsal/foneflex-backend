@@ -8,6 +8,8 @@ import org.springframework.validation.annotation.Validated;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import ucsal.foneflex.ordemservico.OrdemServico;
+import ucsal.foneflex.ordemservico.OrdemServicoRepository;
 import ucsal.foneflex.pagamento.dto.PagamentoRequestDTO;
 import ucsal.foneflex.pagamento.dto.PagamentoResponseDTO;
 import ucsal.foneflex.venda.Venda;
@@ -20,6 +22,7 @@ public class PagamentoService
 {
     private final PagamentoRepository pagamentoRepository;
     private final VendaRepository vendaRepository;
+    private final OrdemServicoRepository ordemServicoRepository;
 
     @Transactional
     public PagamentoResponseDTO registrarPagamento(Integer vendaId, @Valid PagamentoRequestDTO pagamentoRequestDTO)
@@ -36,11 +39,35 @@ public class PagamentoService
             throw new IllegalArgumentException("Não é permitido pagar mais do que o valor total da venda.");
         }
 
-        // if(pagamentoRequestDTO.valor().compareTo(venda.getValorVenda()) > 0)
-        // {
-        //     throw new IllegalArgumentException("O pagamento não pode ser maior que o valor total");
-        // }
         venda.setValorPago(venda.getValorPago().add(pagamentoRequestDTO.valor()));
+        pagamento.setOrdemServico(null);
+        pagamento.setMetodoPagamento(pagamentoRequestDTO.metodoPagamento());
+        pagamento.setBandeiraCartao(pagamentoRequestDTO.bandeiraCartao());
+        pagamento.setValor(pagamentoRequestDTO.valor());
+
+        pagamentoRepository.save(pagamento);
+
+        return toResponseDTO(pagamento);
+    }
+
+    @Transactional
+    public PagamentoResponseDTO registrarPagamentoOrdemServico(Integer ordemServicoId, @Valid PagamentoRequestDTO pagamentoRequestDTO)
+    {
+
+        OrdemServico ordemServico = ordemServicoRepository.findById(ordemServicoId)
+        .orElseThrow(() -> new RuntimeException("Ordem de serviço não encontrada"));
+
+        Pagamento pagamento = new Pagamento();
+
+        pagamento.setVenda(null);
+
+        if(pagamentoRequestDTO.valor().compareTo(ordemServico.getValorEstimado().subtract(ordemServico.getValorPago())) > 0)
+        {
+            throw new IllegalArgumentException("Não é permitido pagar mais do que o valor total da venda.");
+        }
+
+        ordemServico.setValorPago(ordemServico.getValorPago().add(pagamentoRequestDTO.valor()));
+        pagamento.setOrdemServico(ordemServico);
         pagamento.setMetodoPagamento(pagamentoRequestDTO.metodoPagamento());
         pagamento.setBandeiraCartao(pagamentoRequestDTO.bandeiraCartao());
         pagamento.setValor(pagamentoRequestDTO.valor());
@@ -57,6 +84,18 @@ public class PagamentoService
         .orElseThrow(() -> new RuntimeException("Venda não encontrada"));
 
         return pagamentoRepository.findByVenda(venda)
+        .stream()
+        .map(this::toResponseDTO)
+        .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<PagamentoResponseDTO> visualizarPagamentosOrdemServico(Integer ordemServicoId)
+    {
+        OrdemServico ordemServico = ordemServicoRepository.findById(ordemServicoId)
+        .orElseThrow(() -> new RuntimeException("Venda não encontrada"));
+
+        return pagamentoRepository.findByOrdemServico(ordemServico)
         .stream()
         .map(this::toResponseDTO)
         .toList();
@@ -84,6 +123,19 @@ public class PagamentoService
         pagamentoRepository.delete(pagamento);
     }
 
+    @Transactional
+    public void deletarPagamentoOrdemServico(Long id)
+    {
+        Pagamento pagamento = pagamentoRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Pagamento não encontrado"));
+
+        OrdemServico ordemServico = pagamento.getOrdemServico();
+
+        ordemServico.setValorPago(ordemServico.getValorPago().subtract(pagamento.getValor()));
+
+        pagamentoRepository.delete(pagamento);
+    }
+
     private PagamentoResponseDTO toResponseDTO(Pagamento pagamento)
     {
         return new PagamentoResponseDTO
@@ -91,7 +143,8 @@ public class PagamentoService
             pagamento.getId(),
             pagamento.getFuncionario().getNome(),
             pagamento.getDataPagamento(),
-            pagamento.getVenda().getId(),
+            pagamento.getVenda() != null ? pagamento.getVenda().getId() : null,
+            pagamento.getOrdemServico() != null ? pagamento.getOrdemServico().getId() : null,
             pagamento.getMetodoPagamento(),
             pagamento.getBandeiraCartao(),
             pagamento.getValor()

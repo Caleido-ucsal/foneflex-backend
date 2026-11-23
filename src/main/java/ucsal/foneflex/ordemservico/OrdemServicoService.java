@@ -102,6 +102,7 @@ public class OrdemServicoService
             ordemServico.getNumeroSerieImei(),
             ordemServico.getDescricaoProblema(),
             ordemServico.getValorEstimado().toString(),
+            ordemServico.getValorPago(),
             ordemServico.getCliente().getNome(),
             ordemServico.getFuncionarioResponsavel().getNome(),
             ordemServico.getStatusOS(),

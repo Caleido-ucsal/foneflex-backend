@@ -33,10 +33,24 @@ public class PagamentoController
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "Pagamento lançado com sucesso"));
     }
 
+    @PostMapping("ordens-servico/{ordemServicoId}/pagamentos")
+    public ResponseEntity<Map<String, Object>> registrarPagamentoOrdemServico(@PathVariable Integer ordemServicoId, @Valid @RequestBody PagamentoRequestDTO pagamentoRequestDTO)
+    {
+        pagamentoService.registrarPagamentoOrdemServico(ordemServicoId, pagamentoRequestDTO);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "Pagamento lançado com sucesso"));
+    }
+    
     @GetMapping("vendas/{vendaId}/pagamentos")
-    public List<PagamentoResponseDTO> visualizarProdutosVenda(@PathVariable Integer vendaId)
+    public List<PagamentoResponseDTO> visualizarPagamentosVenda(@PathVariable Integer vendaId)
     {
         return pagamentoService.visualizarPagamentosVenda(vendaId);
+    }
+
+    @GetMapping("ordens-servico/{ordemServicoId}/pagamentos")
+    public List<PagamentoResponseDTO> visualizarPagamentosOrdemServico(@PathVariable Integer ordemServicoId)
+    {
+        return pagamentoService.visualizarPagamentosOrdemServico(ordemServicoId);
     }
 
     @GetMapping("pagamentos")
@@ -51,5 +65,13 @@ public class PagamentoController
         pagamentoService.deletarPagamento(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("mensagem", "O Pagamento foi deletado da venda com sucesso"));
+    }
+    
+    @DeleteMapping("ordens-servico/{ordemServicoId}/pagamentos/{id}")
+    public ResponseEntity<Map<String, Object>> deletarPagamentoOrdemServico(@PathVariable Long id)
+    {
+        pagamentoService.deletarPagamentoOrdemServico(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("mensagem", "O Pagamento foi deletado da ordem de serviço com sucesso"));
     }
 }

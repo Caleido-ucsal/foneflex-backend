@@ -10,6 +10,7 @@ import ucsal.foneflex.pagamento.MetodoPagamento;
 public record PagamentoRequestDTO
 (
     Long vendaId,
+    Integer ordemServicoId,
     @NotNull(message = "O método de pagamento é obrigatório")
     MetodoPagamento metodoPagamento,
     BandeiraCartao bandeiraCartao,

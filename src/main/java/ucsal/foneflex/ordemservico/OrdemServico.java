@@ -2,11 +2,14 @@ package ucsal.foneflex.ordemservico;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -17,11 +20,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ucsal.foneflex.cliente.Cliente;
+import ucsal.foneflex.pagamento.Pagamento;
 import ucsal.foneflex.usuario.Usuario;
 
 @Entity
@@ -50,7 +55,10 @@ public class OrdemServico
     private String descricaoProblema;
 
     @Column (nullable = false, updatable = true)
-    private BigDecimal valorEstimado;
+    private BigDecimal valorEstimado = BigDecimal.ZERO;
+
+    // @Column (nullable = false, updatable = true)
+    private BigDecimal valorPago = BigDecimal.ZERO;
 
     @JoinColumn (name = "codigo_cliente", nullable = false, updatable = true)
     @ManyToOne
@@ -70,4 +78,7 @@ public class OrdemServico
     private LocalDateTime dataAbertura;
 
     private LocalDateTime dataConclusao;
+
+    @OneToMany(mappedBy = "ordemServico", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Pagamento> pagamentos = new ArrayList<>();
 }

@@ -21,6 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ucsal.foneflex.ordemservico.OrdemServico;
 import ucsal.foneflex.usuario.Usuario;
 import ucsal.foneflex.venda.Venda;
 
@@ -45,9 +46,13 @@ public class Pagamento
     @CreatedDate
     private LocalDateTime dataPagamento;
 
-    @JoinColumn(name = "codigo_venda")
+    @JoinColumn(name = "codigo_venda", nullable = true)
     @ManyToOne
     private Venda venda;
+
+    @JoinColumn(name = "codigo_ordem_servico", nullable = true)
+    @ManyToOne
+    private OrdemServico ordemServico;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

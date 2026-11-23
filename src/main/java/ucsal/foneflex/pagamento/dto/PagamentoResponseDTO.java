@@ -15,6 +15,7 @@ public record PagamentoResponseDTO
     @JsonFormat(pattern = "dd-MM-yyyy 'T' HH:mm:ss")
     LocalDateTime dataPagamento,
     Integer vendaId,
+    Integer ordemServicoId,
     MetodoPagamento metodoPagamento,
     BandeiraCartao bandeiraCartao,
     BigDecimal valor
